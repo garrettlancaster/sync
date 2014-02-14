@@ -77,12 +77,13 @@ class Sync.Faye
   subscriptions: []
 
   connect: ->
-    @client = new window.Faye.Client(Sync.FAYE_HOST)
+    @client = new window.Faye?.Client(Sync.FAYE_HOST)
 
 
   isConnected: -> @client?.getState() is "CONNECTED"
 
   subscribe: (channel, callback) -> 
+    return unless @client?
     subscription = new Sync.Faye.Subscription(@client, channel, callback)
     @subscriptions.push(subscription)
     subscription
